@@ -26,7 +26,7 @@ class BaiduClimb:
 
         httpRsp = requests.get("http://www.baidu.com/s?wd={}".format(key), headers=headersParameters)
         if httpRsp.status_code != 200:
-            # print("数据获取失败")
+            print("数据获取失败")
             print("fail")
         else:
             if key != '英荔教育':
