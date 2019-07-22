@@ -26,7 +26,8 @@ class BaiduClimb:
 
         httpRsp = requests.get("http://www.baidu.com/s?wd={}".format(key), headers=headersParameters)
         if httpRsp.status_code != 200:
-            print("数据获取失败")
+            # print("数据获取失败")
+            print("fail")
         else:
             if key != '英荔教育':
                 soup = BeautifulSoup(httpRsp.text, "lxml")
@@ -40,10 +41,10 @@ class BaiduClimb:
                     aTag = results[index].select("h3 a")[0]
                     # 获取标题的文本
                     title = aTag.get_text()
-                    print(title)
+                    #print(title)
                     # 获取网页的真实URL
                     href = aTag.attrs["href"]
-                    print(href)
+                    #print(href)
                     sessions =requests.session()
                     sessions.headers['User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
                     r = sessions.get(href)
@@ -57,8 +58,8 @@ class BaiduClimb:
             else:
                 soup = BeautifulSoup(httpRsp.text, "lxml")
                 results = soup.select(".result.c-container ")
-                print(len(results))
-                print(results)
+                # print(len(results))
+                # print(results)
                 # 用于保存提取的数据
                 resultArr = []
                 for index in range(len(results) - 5):
@@ -67,10 +68,10 @@ class BaiduClimb:
                     aTag = results[index].select("h3 a")[0]
                     # 获取标题的文本
                     title = aTag.get_text()
-                    print(title)
+                    #print(title)
                     # 获取网页的真实URL
                     href = aTag.attrs["href"]
-                    print(href)
+                    #print(href)
                     sessions = requests.session()
                     sessions.headers[
                         'User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
@@ -90,10 +91,10 @@ class BaiduClimb:
                     aTag = results[index].select("h3 a")[0]
                     # 获取标题的文本
                     title = aTag.get_text()
-                    print(title)
+                    #print(title)
                     # 获取网页的真实URL
                     href = aTag.attrs["href"]
-                    print(href)
+                    #print(href)
                     sessions = requests.session()
                     sessions.headers[
                         'User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
@@ -114,10 +115,10 @@ class BaiduClimb:
                     aTag = results[index].select("h3 a")[0]
                     # 获取标题的文本
                     title = aTag.get_text()
-                    print(title)
+                    #print(title)
                     # 获取网页的真实URL
                     href = aTag.attrs["href"]
-                    print(href)
+                    #print(href)
                     sessions = requests.session()
                     sessions.headers[
                         'User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
