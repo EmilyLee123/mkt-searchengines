@@ -103,7 +103,12 @@ class SouGouClimb:
                 for index in range(len(results) - 6):
                     # 获取标题所在的a标签
                     # print(results[index])
-                    aTag = results[index].select("h3 a")[0]
+                    div_a = results[index].select("div>a")
+                    if len(div_a) > 0:
+                        aTag = div_a[0]
+                    else:
+                        aTag = results[index].select("h3 a")[0]
+                    #aTag = results[index].select("h3 a")[0]
                     # 获取标题的文本
                     title = aTag.get_text()
                     print(title)
