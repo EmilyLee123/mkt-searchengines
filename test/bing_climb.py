@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from function import Excel
 
 search_key = ['英荔', '英荔教育', '英荔商学院']
-class BingMoblieClimb:
+class BingClimb:
     def get_excel_data(self, dataname, row=2):
         data = Excel(dataname)
         return data.read_excel(row)
@@ -14,22 +14,22 @@ class BingMoblieClimb:
     def set_excel_data(self, dataname,col, row, datas):
         excel_data = Excel(dataname)
         excel_data.write_excel_rol(col,row, datas)
-    def climb_moblie_bing(self,key):
-        with requests.Session() as s:
+    def climb_bing(self,key):
         # 发送HTTP请求时的HEAD信息，用于伪装为浏览器,不然可能被察觉到是爬虫脚本
-            headersParameters = {
+        headersParameters = {
                 'Connection': 'Keep-Alive',
                 'Accept': 'text/html, application/xhtml+xml, */*',
                 'Accept-Language': 'en-US,en;q=0.8,zh-Hans-CN;q=0.5,zh-Hans;q=0.3',
                 'Accept-Encoding': 'gzip, deflate',
-                'User-Agent': 'Mozilla/5.0 (Mozilla/5.0 (iPad; CPU OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Version/11.0 Mobile/15A5341f Safari/604.1)'
-             }
-            s.get('https://cn.bing.com', headers=headersParameters)
-            rep = s.get("https://cn.bing.com/search?q={}".format(key), headers=headersParameters)
-        if rep.status_code != 200:
+                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
+        }
+
+        httpRsp = requests.get("https://cn.bing.com/search?q={}".format(key), headers=headersParameters)
+        if httpRsp.status_code != 200:
             print("数据获取失败")
         else:
-            soup = BeautifulSoup(rep.text, "lxml")
+            soup = BeautifulSoup(httpRsp.text, "lxml")
+            print(soup)
             results = soup.select(".b_algo")
             print(results)
             # 用于保存提取的数据
@@ -44,10 +44,10 @@ class BingMoblieClimb:
                 # 获取网页的真实URL
                 href = aTag.attrs["href"]
                 print(href)
-                # sessions =requests.session()
-                # sessions.headers['User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
-                # r = sessions.get(href)
-                # href = r.url
+                sessions =requests.session()
+                sessions.headers['User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
+                r = sessions.get(href)
+                href = r.url
                 resultArr.append({
                     "title": title,
                     "href": href,
@@ -59,16 +59,16 @@ class BingMoblieClimb:
     def write(self):
         n = 0
         for i in range(len(search_key)):
-            result = self.climb_moblie_bing(search_key[i])
+            result = self.climb_bing(search_key[i])
             for c in range(len(result)):
                 title = result[c].get('title')
                 url = result[c].get('href')
-                self.set_excel_data('search_result', c + 47, n, title)
-                self.set_excel_data('search_result', c + 47, n + 1, url)
+                self.set_excel_data('search_result', c + 11, n, title)
+                self.set_excel_data('search_result', c + 11, n + 1, url)
                 if url == 'https://www.elitemba.cn' or url == 'https://www.elitemba.cn/':
-                    self.set_excel_data('search_result', c + 47, n + 2, '是')
+                    self.set_excel_data('search_result', c + 11, n + 2, '是')
                 else:
-                    self.set_excel_data('search_result', c + 47, n + 2, '否')
+                    self.set_excel_data('search_result', c + 11, n + 2, '否')
             n += 4
 
 
@@ -77,5 +77,5 @@ class BingMoblieClimb:
 
 
 if __name__ == '__main__':
-    #BingMoblieClimb().climb_moblie_bing('英荔商学院')
-    BingMoblieClimb().write()
+    #BingClimb().climb_bing('英荔商学院')
+    BingClimb().write()

@@ -1,3 +1,4 @@
+import datetime
 from time import sleep
 
 import requests
@@ -61,19 +62,20 @@ class SouGouClimb:
                     aTag = results[index].select("h3 a")[0]
                     # 获取标题的文本
                     title = aTag.get_text()
-                    print(title)
+                    #print(title)
                     # 获取网页的真实URL
                     href = aTag.attrs["href"]
                     sessions = requests.session()
                     sessions.headers['User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
                     r = sessions.get('https://www.sogou.com' + href)
                     href = r.url
-                    print(href)
+                    #print(href)
                     resultArr.append({
                         "title": title,
                         "href": href,
                     })
-                # print(resultArr)
+                print("111111")
+                print(resultArr)
                 return resultArr
             if key == '英荔教育':
                 resultArr = []
@@ -82,7 +84,7 @@ class SouGouClimb:
                 aTag = results[0].select("h3 a")[0]
                 # 获取标题的文本
                 title = aTag.get_text()
-                print(title)
+                #print(title)
                 # 获取网页的真实URL
                 href = aTag.attrs["href"]
                 sessions = requests.session()
@@ -90,7 +92,7 @@ class SouGouClimb:
                     'User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
                 r = sessions.get('https://www.sogou.com' + href)
                 href = r.url
-                print(href)
+                #print(href)
                 resultArr.append({
                     "title": title,
                     "href": href,
@@ -103,12 +105,12 @@ class SouGouClimb:
                 for index in range(len(results) - 6):
                     # 获取标题所在的a标签
                     # print(results[index])
-                    div_a = results[index].select("div>a")
-                    if len(div_a) > 0:
-                        aTag = div_a[0]
-                    else:
-                        aTag = results[index].select("h3 a")[0]
-                    #aTag = results[index].select("h3 a")[0]
+                    # div_a = results[index].select("div>a")
+                    # if len(div_a) > 0:
+                    #     aTag = div_a[0]
+                    # else:
+                    #     aTag = results[index].select("h3 a")[0]
+                    aTag = results[index].select("h3 a")[0]
                     # 获取标题的文本
                     title = aTag.get_text()
                     print(title)
@@ -124,7 +126,7 @@ class SouGouClimb:
                         "title": title,
                         "href": href,
                     })
-                # print(resultArr)
+                #print(resultArr)
                 #取第四个结果
                 soup = BeautifulSoup(httpRsp.text, "lxml")
                 results = soup.select(".vrwrap")
@@ -133,7 +135,7 @@ class SouGouClimb:
                 aTag = results[3].select("h3 a")[0]
                 # 获取标题的文本
                 title = aTag.get_text()
-                print(title)
+                #print(title)
                 # 获取网页的真实URL
                 href = aTag.attrs["href"]
                 sessions = requests.session()
@@ -141,7 +143,7 @@ class SouGouClimb:
                     'User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
                 r = sessions.get('https://www.sogou.com' + href)
                 href = r.url
-                print(href)
+                #print(href)
                 resultArr.append({
                     "title": title,
                     "href": href,
@@ -152,7 +154,7 @@ class SouGouClimb:
                 aTag = results[1].select("h3 a")[0]
                 # 获取标题的文本
                 title = aTag.get_text()
-                print(title)
+                # print(title)
                 # 获取网页的真实URL
                 href = aTag.attrs["href"]
                 sessions = requests.session()
@@ -160,23 +162,25 @@ class SouGouClimb:
                     'User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
                 r = sessions.get('https://www.sogou.com' + href)
                 href = r.url
-                print(href)
+                #print(href)
                 resultArr.append({
                     "title": title,
                     "href": href,
                 })
+                print("英荔教育")
+                print(resultArr)
                 return resultArr
             if key == '英荔商学院':
                 soup = BeautifulSoup(httpRsp.text, "lxml")
                 results = soup.select(".rb")
-                print(len(results),'rbrbrbrrbrbrbrbrrbrbrbrb')
+                #print(len(results),'rbrbrbrrbrbrbrbrrbrbrbrb')
                 for index in range(len(results) - 4):
                     # 获取标题所在的a标签
                     # print(results[index])
                     aTag = results[index].select("h3 a")[0]
                     # 获取标题的文本
                     title = aTag.get_text()
-                    print(title)
+                    #print(title)
                     # 获取网页的真实URL
                     href = aTag.attrs["href"]
                     sessions = requests.session()
@@ -185,20 +189,20 @@ class SouGouClimb:
                     url = 'https://www.sogou.com' + href
                     r = sessions.get(str(url))
                     href = r.url
-                    print(href)
+                    #print(href)
                     resultArr.append({
                         "title": title,
                         "href": href,
                     })
                 results = soup.select(".vrwrap")
-                print(len(results))
+                #print(len(results))
                 for index in range(len(results) - 6):
                     # 获取标题所在的a标签
                     # print(results[index])
                     aTag = results[index].select("h3 a")[0]
                     # 获取标题的文本
                     title = aTag.get_text()
-                    print(title)
+                    #print(title)
                     # 获取网页的真实URL
                     href = aTag.attrs["href"]
                     sessions = requests.session()
@@ -206,7 +210,7 @@ class SouGouClimb:
                         'User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
                     r = sessions.get('https://www.sogou.com' + href)
                     href = r.url
-                    print(href)
+                    #print(href)
                     resultArr.append({
                         "title": title,
                         "href": href,
@@ -218,19 +222,21 @@ class SouGouClimb:
                     aTag = results[index].select("h3 a")[0]
                     # 获取标题的文本
                     title = aTag.get_text()
-                    print(title)
+                    #print(title)
                     # 获取网页的真实URL
                     href = aTag.attrs["href"]
                     sessions = requests.session()
-                    # sessions.headers[
-                    #     'User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
-                    # r = sessions.get('https://www.sogou.com' + href)
-                    # href = r.url
-                    print(href)
+                    sessions.headers[
+                        'User-Agent'] = 'Mozilla/6.1 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) like Gecko'
+                    r = sessions.get('https://www.sogou.com' + href)
+                    href = r.url
+                    #print(href)
                     resultArr.append({
                         "title": title,
                         "href": href,
                     })
+                print("英荔商学院")
+                print(resultArr)
                 return resultArr
 
 
@@ -249,7 +255,9 @@ class SouGouClimb:
                     self.set_excel_data('search_result', c + 20, n + 2, '否')
             n += 4
 
-
+        time = str(datetime.datetime.now())
+        print(time)
+        self.set_excel_data('search_result', 20, 11, time)
 
 
 
