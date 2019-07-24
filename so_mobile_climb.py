@@ -1,3 +1,5 @@
+import datetime
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -70,7 +72,9 @@ class SoClimbMoblie:
                     self.set_excel_data('search_result', c + 65, n + 2, '否')
             n += 4
 
-
+        time = str(datetime.datetime.now())
+        print(time)
+        self.set_excel_data('search_result', 65, 11, time)
 
 
 
